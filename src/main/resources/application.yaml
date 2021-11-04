@@ -1,0 +1,18 @@
+server:
+  servlet:
+    context-path: /shopping
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql:///shopping?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis-plus:
+  mapper-locations: mappers/*.xml
+  type-aliases-package: com.demo.shopping.pojo
+  configuration:
+    auto-mapping-behavior: full
+    map-underscore-to-camel-case: true
