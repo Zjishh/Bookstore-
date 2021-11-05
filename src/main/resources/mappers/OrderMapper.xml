@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.shopping.mapper.OrderMapper">
+    <resultMap id="OrderMap" type="orders">
+        <id property="oid" column="oid"></id>
+        <association property="book" javaType="book">
+            <id property="bid" column="bid"></id>
+        </association>
+        <association property="store" javaType="store">
+            <id property="sid" column="sid"></id>
+        </association>
+    </resultMap>
+    <select id="querylistOrder" resultMap="OrderMap">
+
+        SELECT * FROM orders o JOIN book b ON o.bid=b.bid JOIN store s ON o.sid=s.sid  AND o.deleted=0 AND o.state=0
+        <if test="uid != null">
+            AND o.uid=#{uid}
+        </if>
+    </select>
+
+
+    <resultMap id="OrderMap2" type="orders">
+        <id property="oid" column="oid"></id>
+        <association property="book" javaType="book">
+            <id property="bid" column="bid"></id>
+        </association>
+        <association property="store" javaType="store">
+            <id property="sid" column="sid"></id>
+        </association>
+    </resultMap>
+    <select id="querylistfu" resultMap="OrderMap2">
+
+        SELECT * FROM orders o JOIN book b ON o.bid=b.bid JOIN store s ON o.sid=s.sid  AND o.deleted=0 AND o.state=1
+
+        <if test="uid != null">
+            AND o.uid=#{uid}
+        </if>
+    </select>
+
+</mapper>
