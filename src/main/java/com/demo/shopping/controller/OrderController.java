@@ -51,4 +51,15 @@ public class OrderController {
         R r =orderService.deleted(oid);
         return r;
     }
+
+    @PostMapping("zong")
+    public Object zong(@RequestBody CartDto cartDto){
+        R r=orderService.zong(cartDto);
+        return r;
+    }
+    @PostMapping("shangjia")
+    public Object shangjia(int sid){
+        R r=orderService.shangjia(sid);
+        return r;
+    }
 }

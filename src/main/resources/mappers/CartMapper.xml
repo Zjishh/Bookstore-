@@ -7,6 +7,9 @@
         <id property="cid" column="cid"></id>
         <association property="book" javaType="book">
             <id property="bid" column="bid"></id>
+            <collection property="pictures" ofType="picture">
+                <id property="pid" column="pictureId"></id>
+            </collection>
         </association>
         <association property="store" javaType="store">
             <id property="sid" column="sid"></id>
@@ -14,9 +17,18 @@
     </resultMap>
     <select id="querylistCart" resultMap="CartMap">
 
-        SELECT * FROM cart c JOIN book b ON c.bid=b.bid JOIN store s ON c.sid=s.sid  AND c.deleted=0
+        SELECT * FROM cart c
+        JOIN book b ON c.bid=b.bid
+        JOIN picture p ON b.bid=p.bid
+            and p.deleted=0
+        JOIN store s ON c.sid=s.sid
+
+        AND c.deleted=0
         <if test="uid != null">
             AND c.uid=#{uid}
+        </if>
+        <if test="bid != null">
+            AND c.bid=#{bid}
         </if>
     </select>
 </mapper>

@@ -7,6 +7,9 @@
         <id property="oid" column="oid"></id>
         <association property="book" javaType="book">
             <id property="bid" column="bid"></id>
+            <collection property="pictures" ofType="picture">
+                <id property="pid" column="pictureId"></id>
+            </collection>
         </association>
         <association property="store" javaType="store">
             <id property="sid" column="sid"></id>
@@ -14,7 +17,12 @@
     </resultMap>
     <select id="querylistOrder" resultMap="OrderMap">
 
-        SELECT * FROM orders o JOIN book b ON o.bid=b.bid JOIN store s ON o.sid=s.sid  AND o.deleted=0 AND o.state=0
+        SELECT * FROM orders o
+        JOIN book b ON o.bid=b.bid
+        JOIN picture p ON b.bid=p.bid
+            and p.deleted=0
+        JOIN store s ON o.sid=s.sid
+        AND o.deleted=0 AND o.state=0
         <if test="uid != null">
             AND o.uid=#{uid}
         </if>
@@ -25,6 +33,9 @@
         <id property="oid" column="oid"></id>
         <association property="book" javaType="book">
             <id property="bid" column="bid"></id>
+            <collection property="pictures" ofType="picture">
+                <id property="pid" column="pictureId"></id>
+            </collection>
         </association>
         <association property="store" javaType="store">
             <id property="sid" column="sid"></id>
@@ -32,11 +43,59 @@
     </resultMap>
     <select id="querylistfu" resultMap="OrderMap2">
 
-        SELECT * FROM orders o JOIN book b ON o.bid=b.bid JOIN store s ON o.sid=s.sid  AND o.deleted=0 AND o.state=1
+        SELECT * FROM orders o
+        JOIN book b ON o.bid=b.bid
+        JOIN picture p ON b.bid=p.bid
+            and p.deleted=0
+        JOIN store s ON o.sid=s.sid
+        AND o.deleted=0  AND o.state=1
 
         <if test="uid != null">
             AND o.uid=#{uid}
         </if>
     </select>
 
+    <resultMap id="OrderMap3" type="orders">
+        <id property="oid" column="oid"></id>
+        <association property="book" javaType="book">
+            <id property="bid" column="bid"></id>
+                <collection property="pictures" ofType="picture">
+                    <id property="pid" column="pictureId"></id>
+                </collection>
+        </association>
+        <association property="store" javaType="store">
+            <id property="sid" column="sid"></id>
+        </association>
+    </resultMap>
+    <select id="querylistzong" resultMap="OrderMap3">
+
+        SELECT * FROM orders o
+        JOIN book b ON o.bid=b.bid
+        JOIN picture p ON b.bid=p.bid
+        and p.deleted=0
+        JOIN store s ON o.sid=s.sid
+        <if test="uid != null">
+            AND o.uid=#{uid}
+        </if>
+    </select>
+
+    <resultMap id="OrderMap4" type="orders">
+        <id property="oid" column="oid"></id>
+        <association property="book" javaType="book">
+            <id property="bid" column="bid"></id>
+            <collection property="pictures" ofType="picture">
+                <id property="pid" column="pictureId"></id>
+            </collection>
+        </association>
+    </resultMap>
+    <select id="querylistshangjia" resultMap="OrderMap4">
+
+        SELECT * FROM orders o
+        JOIN book b ON o.bid=b.bid
+        JOIN picture p ON b.bid=p.bid
+        AND o.deleted=0
+        <if test="sid != null">
+            AND o.sid=#{sid}
+        </if>
+    </select>
 </mapper>

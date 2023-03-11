@@ -1,26 +1,24 @@
 package com.demo.shopping.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-/**
- * projectName: health
- *
- * @author: 杨玉斌
- * time: 2021/11/4 14:02
- * description:图书
- */
+import java.util.List;
+
+
 @Data
 public class Book {
-    private String img;
+    @TableId(type = IdType.AUTO)
     private Integer bid;
     private Integer sid;
-    private Integer pid;
     private String bname;
     private double price;
-    private  Integer fare;
+    private double fare;
     private String title;
     private String genre;
+    private Integer deleted;
 
-
-
+    private Store store;
+    private List<Picture> pictures;
 }

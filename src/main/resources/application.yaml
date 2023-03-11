@@ -5,11 +5,20 @@ server:
 spring:
   datasource:
     username: root
-    password: 123456
+    password: 666666
     url: jdbc:mysql:///shopping?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-
+  mvc:
+    static-path-pattern: /static/**
+  devtools:
+    restart:
+      # 开启热部署（更改文件后，自动重启）
+      enabled: true
+      ## 设置哪些资源变动后不触发热部署，会覆盖默认的exclude内容（资源不会触发重启，但会触发实时重新加载）
+      # exclude: /static/**
+      ## 监控额外的路径（优先于exclude）
+      # additional-paths: src/main/java
 mybatis-plus:
   mapper-locations: mappers/*.xml
   type-aliases-package: com.demo.shopping.pojo

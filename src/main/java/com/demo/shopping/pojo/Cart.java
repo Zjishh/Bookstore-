@@ -4,13 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
-/**
- * projectName: health
- *
- * @author: 杨玉斌
- * time: 2021/11/4 13:33
- * description:购物车
- */
+import java.util.List;
+
+
 @Data
 public class Cart {
     @TableId(type = IdType.AUTO)

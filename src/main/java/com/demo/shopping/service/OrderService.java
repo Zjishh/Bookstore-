@@ -42,5 +42,16 @@ public interface OrderService {
     R deleted(int oid);
 
 
-
+    /**
+     * 查看全部订单
+     * @param cartDto
+     * @return
+     */
+    R zong(CartDto cartDto);
+    /**
+     * 商家订单
+     * @param sid
+     * @return
+     */
+    R shangjia(int sid);
 }

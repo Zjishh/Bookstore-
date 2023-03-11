@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.shopping.mapper.BookMapper">
+
+    <resultMap id="BookMap" type="book">
+        <id property="bid" column="bid"></id>
+
+        <association property="store" javaType="store">
+            <id property="sid" column="sid"></id>
+            <association property="user" javaType="user">
+                <id property="uid" column="uid"></id>
+            </association>
+        </association>
+        <collection property="pictures" ofType="picture">
+            <id property="pid" column="pictureId"></id>
+        </collection>
+    </resultMap>
+    <select id="queryBooks" resultMap="BookMap">
+        SELECT * FROM book b
+            JOIN store s ON b.sid=s.sid
+            JOIN USER u ON s.uid=u.uid
+            LEFT JOIN picture p ON p.bid = b.bid
+                and p.deleted=0
+            WHERE b.deleted=0
+        <if test="bid != null">
+            AND b.bid=#{bid}
+        </if>
+        <if test="bname != null and bname != ''" >
+            AND b.bname like concat("%",#{bname},"%")
+        </if>
+        <if test="genre != null and genre != ''">
+            AND b.genre like concat("%",#{genre},"%")
+        </if>
+        <if test="sid != null and sid != ''">
+            AND b.sid like concat("%",#{sid},"%")
+        </if>
+    </select>
+</mapper>

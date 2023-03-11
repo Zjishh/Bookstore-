@@ -41,5 +41,10 @@ public class CartController {
         return r;
     }
 
+    @PostMapping("save")
+    public Object save(@RequestBody CartDto cartDto){
+        R r=cartService.save(cartDto);
+        return r;
+    }
 
 }

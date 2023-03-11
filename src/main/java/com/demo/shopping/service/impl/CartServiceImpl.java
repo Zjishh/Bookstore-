@@ -1,5 +1,6 @@
 package com.demo.shopping.service.impl;
 
+
 import com.demo.shopping.dto.CartDto;
 import com.demo.shopping.mapper.CartMapper;
 import com.demo.shopping.pojo.Cart;
@@ -10,13 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * projectName: health
- *
- * @author: 杨玉斌
- * time: 2021/11/4 13:38
- * description:购物车服务的实现
- */
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -50,7 +44,6 @@ public class CartServiceImpl implements CartService {
         if (rows == 0){
             return R.FAIL("删除失败");
         }
-
         return R.OK("删除成功！！！");
     }
 
@@ -62,15 +55,46 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public R add(Cart cart) {
-        int rows=0;
-        try {
-            rows=cartMapper.insert(cart);
-        }catch (Exception e){}
-        if(rows==0){
-            return R.FAIL("修改失败");
+        CartDto cartDto = new CartDto();
+        cartDto.setUid(cart.getUid());
+        cartDto.setBid(cart.getBid());
+        List<Cart> carts = cartMapper.querylistCart(cartDto);
+
+        if(!carts.isEmpty()){
+
+            cart.setCid(carts.get(0).getCid());
+
+            int rows=cartMapper.updateById(cart);
+
+            if (rows == 0){
+                return R.FAIL("购物车更新失败");
+            }
+            return R.OK("购物车更新成功");
+        }else {
+            int rows=0;
+            try {
+                rows=cartMapper.insert(cart);
+            }catch (Exception e){}
+            if(rows==0) {
+                return R.FAIL("添加失败");
+            }
+            return R.OK("添加成功");
         }
-        return R.OK("成功");
     }
 
+
+    public R save(CartDto cartDto) {
+        Cart cart=new Cart();
+        cart.setCid(cartDto.getCid());
+        cart.setNum(cartDto.getNum());
+        cart.setDeleted(1);
+        int rows=cartMapper.updateById(cart);
+
+        if (rows == 0){
+            return R.FAIL("失败");
+        }
+
+        return R.OK("成功！！！");
+    }
 
 }

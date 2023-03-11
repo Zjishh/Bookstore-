@@ -12,5 +12,7 @@ public interface OrderMapper extends BaseMapper<Orders> {
     List<Orders> querylistOrder(CartDto uid);
     List<Orders> querylistfu(CartDto uid);
 
-    List<Orders> querylistshang(OrdersDto ordersDto);
+    List<Orders> querylistzong(CartDto cartDto);
+
+    List<Orders> querylistshangjia(int sid);
 }
