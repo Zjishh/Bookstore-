@@ -15,6 +15,8 @@ public class Book {
     private String bname;
     private double price;
     private double fare;
+
+
     private String title;
     private String genre;
     private Integer deleted;
