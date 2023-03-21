@@ -2,6 +2,9 @@ package com.demo.shopping.vo;
 
 import lombok.Data;
 
+/***自定义工具类*/
+
+
 @Data
 public class R {
 
@@ -15,6 +18,11 @@ public class R {
     /**
      * 返回的描述信息
      *    描述内容自定义
+     *
+     *
+     *
+     *
+     *
      */
     private String msg = null;
 
