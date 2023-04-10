@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class CartDto{
+    //private
     private Integer uid;
     private Integer bid;
     private Integer num;
