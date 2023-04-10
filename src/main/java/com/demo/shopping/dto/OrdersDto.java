@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class OrdersDto {
-    ////dwadaw
+    ////dwadaw12211212
     private Integer oid;
     private Integer state;
     private double latitude;
